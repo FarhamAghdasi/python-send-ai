@@ -1,58 +1,104 @@
 import os
 import pyperclip
 
-def get_structure(folder_path, indent=0, filter_folder=None):
-    """Get the structure of the folder as a string, ignoring .git folder."""
+def get_structure(folder_path, indent=0, filter_folder=None, exclude_folders=None, exclude_extensions=None):
+    """Get the structure of the folder as a string with visual enhancements."""
+    if exclude_folders is None:
+        exclude_folders = ['.git']
+    if exclude_extensions is None:
+        exclude_extensions = ['.svg']
+        
     structure = ""
-    for item in os.listdir(folder_path):
-        if item == ".git":  # Ignore .git folder
+    items = os.listdir(folder_path)
+    for index, item in enumerate(items):
+        if item in exclude_folders:
             continue
+            
         item_path = os.path.join(folder_path, item)
+        is_last = index == len(items) - 1
+        
         if os.path.isdir(item_path):
-            if filter_folder and filter_folder in item:
-                structure += ' ' * indent + f'[DIR] {item}\n'
-                structure += get_structure(item_path, indent + 4, filter_folder)
-            elif not filter_folder:
-                structure += ' ' * indent + f'[DIR] {item}\n'
-                structure += get_structure(item_path, indent + 4, filter_folder)
+            if filter_folder and filter_folder not in item:
+                continue
+                
+            # Add directory icon and name
+            structure += '│   ' * (indent//4)
+            structure += '└── ' if is_last else '├── '
+            structure += f'📁 {item}\n'
+            
+            # Recursive call for subdirectories
+            structure += get_structure(item_path, indent + 4, filter_folder, exclude_folders, exclude_extensions)
         else:
-            structure += ' ' * indent + f'[FILE] {item}\n'
+            # Check file extension
+            file_ext = os.path.splitext(item)[1].lower()
+            if file_ext in exclude_extensions:
+                continue
+                
+            # Add file icon and name
+            structure += '│   ' * (indent//4)
+            structure += ('└── ' if is_last else '├── ') + f'📄 {item}\n'
+    
     return structure
 
-def get_file_contents(folder_path, filter_folder=None):
-    """Get the content of each file in the folder as a string, ignoring .git folder and .svg files."""
+def get_file_contents(folder_path, filter_folder=None, exclude_folders=None, exclude_extensions=None):
+    """Get the content of each file with visual separators."""
+    if exclude_folders is None:
+        exclude_folders = ['.git']
+    if exclude_extensions is None:
+        exclude_extensions = ['.svg']
+        
     contents = ""
     for root, dirs, files in os.walk(folder_path):
-        if ".git" in root:  # Ignore .git folder
+        # Exclude specified folders
+        path_parts = os.path.normpath(root).split(os.sep)
+        if any(part in exclude_folders for part in path_parts):
             continue
+            
+        # Apply folder filter
         if filter_folder and filter_folder not in root:
             continue
+            
         for file in files:
-            if file.endswith(".svg"):  # Ignore .svg files
+            # Check file extension
+            file_ext = os.path.splitext(file)[1].lower()
+            if file_ext in exclude_extensions:
                 continue
+                
             file_path = os.path.join(root, file)
-            contents += f'\nContent of {file_path}:\n'
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
-                    contents += f.read() + '\n'
+                    content = f.read()
+                    contents += f"\n{'═' * 40}\n📄 {file_path}\n{'═' * 40}\n{content}\n{'═' * 40}\n"
             except Exception as e:
-                contents += f'Could not read file {file_path}: {e}\n'
+                contents += f"\n{'⚠' * 20}\nError reading {file_path}: {e}\n{'⚠' * 20}\n"
+    
     return contents
 
 def main():
     folder_path = input("Enter the folder path: ")
-    filter_folder = input("Enter folder name to filter (leave empty to show all): ")
+    filter_folder = input("Enter folder name to filter (leave empty to show all): ").strip() or None
+    exclude_folders = input("Enter folders to exclude (comma-separated, default: .git): ").strip()
+    exclude_folders = [f.strip() for f in exclude_folders.split(',')] if exclude_folders else ['.git']
+    exclude_extensions = input("Enter file extensions to exclude (comma-separated, default: .svg): ").strip()
+    exclude_extensions = [e.strip().lower() for e in exclude_extensions.split(',')] if exclude_extensions else ['.svg']
 
-    # Get the structure and file contents
-    structure = get_structure(folder_path, filter_folder=filter_folder)
-    contents = get_file_contents(folder_path, filter_folder=filter_folder)
+    structure = get_structure(
+        folder_path,
+        filter_folder=filter_folder,
+        exclude_folders=exclude_folders,
+        exclude_extensions=exclude_extensions
+    )
+    
+    contents = get_file_contents(
+        folder_path,
+        filter_folder=filter_folder,
+        exclude_folders=exclude_folders,
+        exclude_extensions=exclude_extensions
+    )
 
-    # Combine structure and contents
-    output = "Folder Structure:\n" + structure + "\nFile Contents:\n" + contents
-
-    # Copy to clipboard
+    output = f"📂 Folder Structure:\n{structure}\n\n📝 File Contents:{contents}"
     pyperclip.copy(output)
-    print("\nOutput has been copied to your clipboard! You can now paste it anywhere.")
+    print("\n✅ Output has been copied to your clipboard! You can now paste it anywhere.")
 
 if __name__ == "__main__":
     main()
