@@ -169,15 +169,29 @@ def format_output(structure, contents, output_format="txt"):
     else:  # txt
         return f"Folder Structure:\n{structure}\n\nFile Contents:{contents}"
 
-def save_and_open(output, folder_path, output_format="txt"):
+def save_and_open(output, folder_path, output_format="txt", split_if_large=True):
     try:
         output_dir = os.path.join(folder_path, 'output')
         os.makedirs(output_dir, exist_ok=True)
 
         extension = {"txt": "txt", "json": "json", "md": "md"}[output_format]
+        max_size = 12000 
+
+        if split_if_large and len(output) > max_size:
+            user_choice = input(f"{Fore.YELLOW}⚠ خروجی بیش از {max_size:,} کاراکتر است. آیا مایلید به چند فایل تقسیم شود؟ (y/n): {Style.RESET_ALL}").strip().lower()
+            if user_choice == "y":
+                parts = [output[i:i+max_size] for i in range(0, len(output), max_size)]
+                saved_paths = []
+                for idx, part in enumerate(parts, start=1):
+                    filename = f"project_structure_part{idx}.{extension}"
+                    filepath = os.path.join(output_dir, filename)
+                    with open(filepath, 'w', encoding='utf-8') as f:
+                        f.write(part)
+                    saved_paths.append(filepath)
+                print(f"{Fore.GREEN}✅ خروجی در {len(saved_paths)} فایل ذخیره شد.{Style.RESET_ALL}")
+                return saved_paths
         filename = f"project_structure_{len(os.listdir(output_dir)) + 1}.{extension}"
         filepath = os.path.join(output_dir, filename)
-
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(output)
 
@@ -300,6 +314,22 @@ def interactive_mode():
                 suggested_type = "generic"
             continue
 
+        if user_input.lower().startswith("back"):
+            try:
+                parts = user_input.split()
+                if len(parts) == 2 and parts[1].isdigit():
+                    step = int(parts[1])
+                    if 0 <= step < len(results):
+                        i = step
+                        continue
+                elif i > 0:
+                    i -= 1
+                    continue
+            except:
+                pass
+            print(f"{Fore.YELLOW}⚠ Usage: 'back' or 'back <step_number>' to return to a specific step.{Style.RESET_ALL}")
+            continue
+
         if i == 1:  # Validate folder path
             try:
                 processed_input = validate_path(user_input or os.getcwd())
@@ -402,7 +432,7 @@ def main():
 
         output = format_output(structure, contents, output_format)
 
-        saved_path = save_and_open(output, folder_path, output_format)
+        saved_path = save_and_open(output, folder_path, output_format, split_if_large=True)
         print(f"\n{Fore.GREEN}✅ Output saved to: {Fore.BLUE}{saved_path}{Style.RESET_ALL}")
     except ValueError as e:
         print(f"\n{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
