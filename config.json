@@ -1,8 +1,36 @@
 {
-    "exclude_folders": [".git"],
-    "exclude_extensions": [".svg"],
-    "filter_folder": null,
-    "keyword": null,
-    "regex": null,
-    "output_format": "txt"
+    "projects": {
+      "python": {
+        "exclude_folders": [".git", ".venv", "__pycache__"],
+        "exclude_extensions": [".svg", ".pyc"],
+        "filter_folder": null,
+        "keyword": null,
+        "regex": null,
+        "output_format": "txt"
+      },
+      "nodejs": {
+        "exclude_folders": [".git", "node_modules", "dist", "build"],
+        "exclude_extensions": [".svg", ".log"],
+        "filter_folder": "src",
+        "keyword": null,
+        "regex": null,
+        "output_format": "txt"
+      },
+      "java": {
+        "exclude_folders": [".git", "target", ".idea"],
+        "exclude_extensions": [".svg", ".class"],
+        "filter_folder": "src",
+        "keyword": null,
+        "regex": null,
+        "output_format": "txt"
+      },
+      "generic": {
+        "exclude_folders": [".git"],
+        "exclude_extensions": [".svg"],
+        "filter_folder": null,
+        "keyword": null,
+        "regex": null,
+        "output_format": "txt"
+      }
+    }
   }
