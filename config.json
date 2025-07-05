@@ -1,0 +1,8 @@
+{
+    "exclude_folders": [".git"],
+    "exclude_extensions": [".svg"],
+    "filter_folder": null,
+    "keyword": null,
+    "regex": null,
+    "output_format": "txt"
+  }

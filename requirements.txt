@@ -1,1 +1,6 @@
 pyperclip
+colorama
+tqdm
+markdown2
+pytest
+pytest-cov
