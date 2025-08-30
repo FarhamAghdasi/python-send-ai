@@ -9,7 +9,7 @@ cls
 title Python Collect Data
 
 :: Run the main.py script
-python "D:\$RTL-THEMES Apps\python-ai-data\main.py"
+python "main.py"
 
 :: Pause the script to keep the window open after execution
 pause
