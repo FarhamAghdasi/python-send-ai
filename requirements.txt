@@ -1,6 +1,8 @@
-pyperclip 
-colorama 
-tqdm 
-markdown2 
-pytest 
+pyperclip
+colorama
+tqdm
+markdown2
+pytest
 pytest-cov
+chardet
+gitpython

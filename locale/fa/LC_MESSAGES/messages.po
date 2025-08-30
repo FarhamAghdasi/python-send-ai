@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Available project types: python, nodejs, java, go, generic"
+msgstr "انواع پروژه‌های موجود: پایتون، نودجی‌اس، جاوا، گو، ژنریک"
+
+msgid "Enter project type (default: %s): "
+msgstr "نوع پروژه را وارد کنید (پیش‌فرض: %s): "
+
+msgid "Enter the folder path or GitHub URL (default: %s): "
+msgstr "مسیر پوشه یا URL گیتهاب را وارد کنید (پیش‌فرض: %s): "
+
+msgid "Enter folder name to filter (default: %s): "
+msgstr "نام پوشه برای فیلتر را وارد کنید (پیش‌فرض: %s): "
+
+msgid "Enter folders to exclude (comma-separated, default: %s): "
+msgstr "پوشه‌های مستثنی (با کاما جدا شده، پیش‌فرض: %s): "
+
+msgid "Enter file extensions to exclude (comma-separated, default: %s): "
+msgstr "پسوندهای فایل مستثنی (با کاما جدا شده، پیش‌فرض: %s): "
+
+msgid "Enter keyword to filter file contents (default: %s): "
+msgstr "کلمه کلیدی برای فیلتر محتوای فایل‌ها (پیش‌فرض: %s): "
+
+msgid "Enter regex pattern to filter file contents (default: %s): "
+msgstr "الگوی رجکس برای فیلتر محتوای فایل‌ها (پیش‌فرض: %s): "
+
+msgid "Enter output format (txt, json, md, html, pdf, default: %s): "
+msgstr "فرمت خروجی را وارد کنید (txt, json, md, html, pdf، پیش‌فرض: %s): "
+
+msgid "Enter minimum file size in bytes (default: %s): "
+msgstr "حداقل اندازه فایل به بایت (پیش‌فرض: %s): "
+
+msgid "Enter modified after date (YYYY-MM-DD, default: %s): "
+msgstr "تاریخ تغییر پس از (YYYY-MM-DD، پیش‌فرض: %s): "
+
+msgid "Output exceeds %s characters. Split into multiple files? (y/n): "
+msgstr "خروجی بیش از %s کاراکتر است. به چند فایل تقسیم شود؟ (بله/خیر): "
+
+msgid "Usage: 'back' or 'back <step_number>' to return to a specific step."
+msgstr "استفاده: 'back' یا 'back <step_number>' برای بازگشت به مرحله خاص."
+
+msgid "Error"
+msgstr "خطا"
+
+msgid "Warning: Unknown project type '%s', using '%s'"
+msgstr "هشدار: نوع پروژه ناشناخته '%s'، استفاده از '%s'"
+
+msgid "Warning: Unknown output format '%s', using '%s'"
+msgstr "هشدار: فرمت خروجی ناشناخته '%s'، استفاده از '%s'"
+
+msgid "Project Structure"
+msgstr "ساختار پروژه"
+
+msgid "File Contents"
+msgstr "محتوای فایل‌ها"
+
+msgid "Path does not exist: %s"
+msgstr "مسیر وجود ندارد: %s"
+
+msgid "Path is not a directory: %s"
+msgstr "مسیر یک پوشه نیست: %s"
+
+msgid "Could not list directory %s: %s"
+msgstr "نمی‌توان پوشه %s را لیست کرد: %s"
+
+msgid "Could not read %s: %s"
+msgstr "نمی‌توان %s را خواند: %s"
+
+msgid "Could not process directory %s: %s"
+msgstr "نمی‌توان پوشه %s را پردازش کرد: %s"
+
+msgid "Error saving output: %s"
+msgstr "خطا در ذخیره خروجی: %s"
+
+msgid "Could not load config.json: %s"
+msgstr "نمی‌توان config.json را بارگذاری کرد: %s"
+
+msgid "Output saved to"
+msgstr "خروجی ذخیره شد در"
+
+msgid "Unexpected error"
+msgstr "خطای غیرمنتظره"
+
+msgid "No output generated."
+msgstr "هیچ خروجی تولید نشد."
+
+msgid "Processing files"
+msgstr "پردازش فایل‌ها"
+
+msgid "Cloning repository: %s"
+msgstr "کلون کردن مخزن: %s"
+
+msgid "Failed to clone repository: %s"
+msgstr "کلون کردن مخزن ناموفق بود: %s"
+
+msgid "Skipping binary file: %s"
+msgstr "رد کردن فایل باینری: %s"
+
+msgid "Potential sensitive content detected in file"
+msgstr "محتوای حساس احتمالی در فایل تشخیص داده شد"
+
+msgid "Output copied to clipboard"
+msgstr "خروجی در کلیپ‌بورد کپی شد"
+
+msgid "Could not open file %s: %s"
+msgstr "نمی‌توان فایل %s را باز کرد: %s"
+
+msgid "Output saved in %s files"
+msgstr "خروجی در %s فایل ذخیره شد"
+
+msgid "Project structure and file reader"
+msgstr "خواننده ساختار پروژه و فایل"
+
+msgid "Custom mode. Format: folder_path 'folder1,folder2' '.log,.md'\nExample: -C /path/to/project '.git,.venv' '.svg,.png'"
+msgstr "حالت سفارشی. فرمت: مسیر_پوشه 'پوشه1،پوشه2' '.log,.md'\nمثال: -C /path/to/project '.git,.venv' '.svg,.png'"
+
+msgid "Only include folders containing this name\nExample: --filter src"
+msgstr "فقط پوشه‌های حاوی این نام را شامل کن\nمثال: --filter src"
+
+msgid "Filter files containing this keyword\nExample: --keyword import"
+msgstr "فیلتر فایل‌های حاوی این کلمه کلیدی\nمثال: --keyword import"
+
+msgid "Filter files matching this regex pattern\nExample: --regex '^def\\s+\\w+'"
+msgstr "فیلتر فایل‌های مطابق با این الگوی رجکس\nمثال: --regex '^def\\s+\\w+'"
+
+msgid "Output format: txt (plain text), json (JSON), md (Markdown), html (HTML), pdf (PDF)\nExample: --format md"
+msgstr "فرمت خروجی: txt (متن ساده)، json (JSON)، md (مارک‌داون)، html (HTML)، pdf (PDF)\nمثال: --format md"
+
+msgid "Project type: %s\nExample: --project-type nodejs\nIf not provided, auto-detected based on folder contents."
+msgstr "نوع پروژه: %s\nمثال: --project-type nodejs\nاگر مشخص نشود، بر اساس محتوای پوشه تشخیص داده می‌شود."
+
+msgid "GitHub repository URL to clone\nExample: --remote https://github.com/user/repo"
+msgstr "URL مخزن گیتهاب برای کلون\nمثال: --remote https://github.com/user/repo"
+
+msgid "Run in GUI mode"
+msgstr "اجرا در حالت GUI"
+
+msgid "Copy to clipboard"
+msgstr "کپی به کلیپ‌بورد"
+
+msgid "Path to log file"
+msgstr "مسیر فایل لاگ"
+
+msgid "Minimum file size in bytes\nExample: --min-size 1000"
+msgstr "حداقل اندازه فایل به بایت\nمثال: --min-size 1000"
+
+msgid "Only include files modified after this date (YYYY-MM-DD)\nExample: --modified-after 2023-01-01"
+msgstr "فقط فایل‌های تغییر یافته پس از این تاریخ (YYYY-MM-DD)\nمثال: --modified-after 2023-01-01"
+
+msgid "Language for interface (en, fa)\nExample: --lang fa"
+msgstr "زبان رابط کاربری (en, fa)\nمثال: --lang fa"
+
+msgid "Project Structure Reader"
+msgstr "خواننده ساختار پروژه"
+
+msgid "Success"
+msgstr "موفقیت"
+
+msgid "Suggested project type"
+msgstr "نوع پروژه پیشنهادی"

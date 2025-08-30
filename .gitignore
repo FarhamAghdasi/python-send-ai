@@ -1,1 +1,5 @@
-output
+output/
+*.pyc
+*.log
+temp_repo/
+locale/*.mo
