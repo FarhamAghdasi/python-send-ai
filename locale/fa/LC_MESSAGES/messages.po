@@ -30,8 +30,8 @@ msgstr "کلمه کلیدی برای فیلتر محتوای فایل‌ها (پ
 msgid "Enter regex pattern to filter file contents (default: %s): "
 msgstr "الگوی رجکس برای فیلتر محتوای فایل‌ها (پیش‌فرض: %s): "
 
-msgid "Enter output format (txt, json, md, html, pdf, default: %s): "
-msgstr "فرمت خروجی را وارد کنید (txt, json, md, html, pdf، پیش‌فرض: %s): "
+msgid "Enter output format (txt, json, md, html, default: %s): "
+msgstr "فرمت خروجی را وارد کنید (txt, json, md, html، پیش‌فرض: %s): "
 
 msgid "Enter minimum file size in bytes (default: %s): "
 msgstr "حداقل اندازه فایل به بایت (پیش‌فرض: %s): "
@@ -129,8 +129,8 @@ msgstr "فیلتر فایل‌های حاوی این کلمه کلیدی\nمثا
 msgid "Filter files matching this regex pattern\nExample: --regex '^def\\s+\\w+'"
 msgstr "فیلتر فایل‌های مطابق با این الگوی رجکس\nمثال: --regex '^def\\s+\\w+'"
 
-msgid "Output format: txt (plain text), json (JSON), md (Markdown), html (HTML), pdf (PDF)\nExample: --format md"
-msgstr "فرمت خروجی: txt (متن ساده)، json (JSON)، md (مارک‌داون)، html (HTML)، pdf (PDF)\nمثال: --format md"
+msgid "Output format: txt (plain text), json (JSON), md (Markdown), html (HTML)\nExample: --format md"
+msgstr "فرمت خروجی: txt (متن ساده)، json (JSON)، md (مارک‌داون)، html (HTML)\nمثال: --format md"
 
 msgid "Project type: %s\nExample: --project-type nodejs\nIf not provided, auto-detected based on folder contents."
 msgstr "نوع پروژه: %s\nمثال: --project-type nodejs\nاگر مشخص نشود، بر اساس محتوای پوشه تشخیص داده می‌شود."
@@ -140,6 +140,9 @@ msgstr "URL مخزن گیتهاب برای کلون\nمثال: --remote https://
 
 msgid "Run in GUI mode"
 msgstr "اجرا در حالت GUI"
+
+msgid "Run in semi-interactive CLI mode with folder/file selection"
+msgstr "اجرا در حالت CLI نیمه‌تعاملی با انتخاب پوشه/فایل"
 
 msgid "Copy to clipboard"
 msgstr "کپی به کلیپ‌بورد"
@@ -164,3 +167,33 @@ msgstr "موفقیت"
 
 msgid "Suggested project type"
 msgstr "نوع پروژه پیشنهادی"
+
+msgid "Would you like to add a prompt? (y/n): "
+msgstr "آیا می‌خواهید یک پرامپت اضافه کنید؟ (بله/خیر): "
+
+msgid "Select a prompt type (use arrow keys, Enter to select, 'q' to skip): "
+msgstr "نوع پرامپت را انتخاب کنید (از کلیدهای جهت‌دار استفاده کنید، Enter برای انتخاب، 'q' برای رد شدن): "
+
+msgid "Would you like to save these settings as a profile? (y/n): "
+msgstr "آیا می‌خواهید این تنظیمات را به‌عنوان یک پروفایل ذخیره کنید؟ (بله/خیر): "
+
+msgid "Enter profile name: "
+msgstr "نام پروفایل را وارد کنید: "
+
+msgid "Profile '%s' saved successfully"
+msgstr "پروفایل '%s' با موفقیت ذخیره شد"
+
+msgid "Could not save profile: %s"
+msgstr "نمی‌توان پروفایل را ذخیره کرد: %s"
+
+msgid "Could not save prompt: %s"
+msgstr "نمی‌توان پرامپت را ذخیره کرد: %s"
+
+msgid "Select files/folders (use arrow keys, Enter to toggle, 'q' to finish): "
+msgstr "انتخاب فایل‌ها/پوشه‌ها (از کلیدهای جهت‌دار استفاده کنید، Enter برای تغییر وضعیت، 'q' برای اتمام): "
+
+msgid "Available prompts:"
+msgstr "پرامپت‌های موجود:"
+
+msgid "Starting interactive mode"
+msgstr "شروع حالت تعاملی"

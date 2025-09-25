@@ -1,18 +1,42 @@
 # Python Project Structure and File Reader
 
-This tool generates a folder structure and file contents for a given directory or GitHub repository, with support for advanced filtering, multiple output formats, GUI, and multilingual interface.
+This tool generates a folder structure and file contents for a given directory or GitHub repository, with support for advanced filtering, multiple output formats, GUI, CLI, and semi-interactive CLI modes, and multilingual interface.
 
 ## Features
 - Display folder structure with customizable filters for folders, files, size, and modification date.
 - Read file contents with keyword, regex, and sensitive content detection.
 - Output in plain text, JSON, Markdown, or HTML formats.
-- Interactive mode or GUI with default settings from `config.json`.
+- Interactive CLI mode, semi-interactive CLI mode (with arrow key selection), or GUI with default settings from `config.json`.
 - Multilingual support (English, Persian) with `--lang`.
 - Colored console output, progress feedback, and logging to file.
 - Project type support for Python, Node.js, Java, Go, and generic projects.
 - Remote repository support via GitHub URLs with `--remote`.
 - Copy output to clipboard with `--copy`.
 - Threaded file processing for performance.
+- Save user settings as profiles in `profiles.json`.
+- Add AI prompts for Error Fixing, Explain to AI, Adding New Feature, and Auto-Commiter.
+- Modular code structure with utilities in `utils` folder.
+
+## Project Structure
+```
+├── [FILE] .gitignore
+├── [FILE] ai-get.bat
+├── [FILE] config.json
+├── [DIR] locale
+│   └── [DIR] fa
+│       └── [DIR] LC_MESSAGES
+│           └── [FILE] messages.po
+├── [FILE] main.py
+├── [FILE] README.md
+├── [FILE] requirements.txt
+├── [DIR] tests
+│   └── [FILE] test_main.py
+└── [DIR] utils
+    ├── [FILE] file_utils.py
+    ├── [FILE] config_utils.py
+    ├── [FILE] prompt_utils.py
+    └── [FILE] ui_utils.py
+```
 
 ## Installation
 1. Clone the repository:
@@ -39,20 +63,14 @@ Run without arguments to enter interactive mode:
 ```bash
 python main.py
 ```
-Follow prompts to specify project type, folder/URL, filters, and output format. Example:
+Follow prompts to specify project type, folder/URL, filters, and output format.
+
+### Semi-Interactive CLI Mode
+Run with arrow key-based folder/file selection:
+```bash
+python main.py --semi
 ```
-Available project types: python, nodejs, java, go, generic
-Enter project type (default: generic): nodejs
-Enter the folder path or GitHub URL (default: /current/path): https://github.com/user/repo
-Enter folder name to filter (default: src): src
-Enter folders to exclude (comma-separated, default: .git,node_modules,dist,build): .git
-Enter file extensions to exclude (comma-separated, default: .svg,.log): .svg
-Enter keyword to filter file contents (default: None): import
-Enter regex pattern to filter file contents (default: None): ^import\s+
-Enter output format (txt, json, md, html, default: txt): html
-Enter minimum file size in bytes (default: 0): 1000
-Enter modified after date (YYYY-MM-DD, default: None): 2023-01-01
-```
+Navigate with arrow keys, press Enter to toggle selection, and 'q' to finish.
 
 ### CLI Mode
 Example for a Node.js project:
@@ -89,6 +107,26 @@ Edit `config.json` to customize settings for different project types:
   }
 }
 ```
+
+### Profiles
+Save settings as a profile after processing:
+```bash
+Would you like to save these settings as a profile? (y/n): y
+Enter profile name: my_profile
+```
+Profiles are saved in `profiles.json`.
+
+### Prompts
+Add AI prompts at the start of interactive mode:
+```bash
+Would you like to add a prompt? (y/n): y
+Select a prompt type (use arrow keys, Enter to select, 'q' to skip):
+→ error_fixing
+  explain_to_ai
+  adding_new_feature
+  auto_commiter
+```
+Prompts are saved in the `prompts` folder as text files.
 
 ## Sample Output (HTML)
 ```html

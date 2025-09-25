@@ -6,3 +6,4 @@ pytest
 pytest-cov
 chardet
 gitpython
+prompt_toolkit

@@ -3,3 +3,4 @@ output/
 *.log
 temp_repo/
 locale/*.mo
+__pycache__
