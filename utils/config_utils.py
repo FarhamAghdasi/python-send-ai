@@ -2,17 +2,8 @@ import os
 import json
 import logging
 from colorama import Fore, Style
-import gettext
-from .file_utils import validate_path
-
-# Initialize i18n
-lang = os.getenv("LANG", "en")
-if lang == "fa":
-    translation = gettext.translation("messages", localedir="locale", languages=["fa"])
-    translation.install()
-    _ = translation.gettext
-else:
-    _ = lambda x: x
+from .i18n_utils import _
+from .common_utils import validate_path
 
 PROJECT_DEFAULTS = {
     "python": {
@@ -56,8 +47,8 @@ PROJECT_DEFAULTS = {
         "modified_after": None
     },
     "laravel": {
-        "exclude_folders": [".git", "vendor", "node_modules", "storage", "bootstrap/cache"],
-        "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin", ".env", ".blade.php"],
+        "exclude_folders": [".git", "vendor", "storage", "public/build"],
+        "exclude_extensions": [".svg", ".jpg", ".png", ".bin", ".lock"],
         "filter_folder": "app",
         "keyword": None,
         "regex": None,
@@ -66,9 +57,9 @@ PROJECT_DEFAULTS = {
         "modified_after": None
     },
     "nextjs": {
-        "exclude_folders": [".git", ".next", "node_modules", "out"],
-        "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin"],
-        "filter_folder": "app",
+        "exclude_folders": [".git", "node_modules", ".next", "public"],
+        "exclude_extensions": [".svg", ".jpg", ".png", ".bin"],
+        "filter_folder": "pages",
         "keyword": None,
         "regex": None,
         "output_format": "txt",
@@ -76,8 +67,8 @@ PROJECT_DEFAULTS = {
         "modified_after": None
     },
     "reactjs": {
-        "exclude_folders": [".git", "node_modules", "build", "dist"],
-        "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin", ".d.ts"],
+        "exclude_folders": [".git", "node_modules", "dist", "build"],
+        "exclude_extensions": [".svg", ".jpg", ".png", ".bin"],
         "filter_folder": "src",
         "keyword": None,
         "regex": None,
@@ -104,8 +95,8 @@ PROJECT_COLORS = {
     "go": Fore.BLUE,
     "laravel": Fore.RED,
     "nextjs": Fore.CYAN,
-    "reactjs": Fore.WHITE,
-    "generic": Fore.CYAN
+    "reactjs": Fore.LIGHTBLUE_EX,
+    "generic": Fore.WHITE
 }
 
 def detect_project_type(folder_path):
@@ -113,21 +104,12 @@ def detect_project_type(folder_path):
     try:
         folder_path = validate_path(folder_path)
         items = os.listdir(folder_path)
-        # Laravel detection
-        if "composer.json" in items or "artisan" in items:
+        if "composer.json" in items:
             return "laravel"
-        # Next.js detection
-        if "next.config.js" in items or "next.config.mjs" in items or ("app" in items and "package.json" in items):
+        if any(f in items for f in ["next.config.js", "next.config.mjs"]):
             return "nextjs"
-        # React.js detection (basic React app)
-        if "package.json" in items:
-            with open(os.path.join(folder_path, "package.json"), "r") as f:
-                pkg = json.load(f)
-                dependencies = pkg.get("dependencies", {}) or {}
-                dev_dependencies = pkg.get("dev_dependencies", {}) or {}
-                if "react" in dependencies or "react" in dev_dependencies:
-                    return "reactjs"
-        # Existing detections
+        if "package.json" in items and any("react" in open(os.path.join(folder_path, "package.json")).read().lower() for _ in [1]):
+            return "reactjs"
         if any(f in items for f in ["package.json", "npm-shrinkwrap.json"]):
             return "nodejs"
         if any(f in items for f in ["pyproject.toml", "requirements.txt", "setup.py"]):

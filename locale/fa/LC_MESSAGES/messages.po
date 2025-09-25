@@ -6,8 +6,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Available project types: python, nodejs, java, go, generic"
-msgstr "انواع پروژه‌های موجود: پایتون، نودجی‌اس، جاوا، گو، ژنریک"
+msgid "Available project types: python, nodejs, java, go, laravel, nextjs, reactjs, generic"
+msgstr "انواع پروژه‌های موجود: پایتون، نودجی‌اس، جاوا، گو، لاراول، نکست‌جی‌اس، ری‌اکت‌جی‌اس، ژنریک"
 
 msgid "Enter project type (default: %s): "
 msgstr "نوع پروژه را وارد کنید (پیش‌فرض: %s): "
@@ -197,6 +197,3 @@ msgstr "پرامپت‌های موجود:"
 
 msgid "Starting interactive mode"
 msgstr "شروع حالت تعاملی"
-
-msgid "Available project types: python, nodejs, java, go, laravel, nextjs, reactjs, generic"
-msgstr "انواع پروژه‌های موجود: پایتون، نودجی‌اس، جاوا، گو، لاراول، نکست‌جی‌اس، ری‌اکت‌جی‌اس، ژنریک"

@@ -14,19 +14,11 @@ import markdown2
 import shutil
 import git
 import json
-from .file_utils import get_structure, get_file_contents, validate_path
+from .file_utils import get_structure, get_file_contents
 from .config_utils import load_config, detect_project_type, PROJECT_DEFAULTS, PROJECT_COLORS
 from .prompt_utils import save_prompt
-import gettext
-
-# Initialize i18n
-lang = os.getenv("LANG", "en")
-if lang == "fa":
-    translation = gettext.translation("messages", localedir="locale", languages=["fa"])
-    translation.install()
-    _ = translation.gettext
-else:
-    _ = lambda x: x
+from .common_utils import validate_path
+from .i18n_utils import _
 
 def format_output(structure, contents, output_format="txt"):
     if output_format == "json":
@@ -133,7 +125,7 @@ def semi_interactive_mode(folder_path):
     bindings = KeyBindings()
     selected_files = []
     current_index = [0]
-    structure = get_structure(folder_path)
+    structure = get_structure(folder_path, indent=0)
     open_folders = set()
 
     @bindings.add(Keys.Up)
@@ -147,18 +139,19 @@ def semi_interactive_mode(folder_path):
     @bindings.add(Keys.Enter)
     def _(event):
         item, is_dir = structure[current_index[0]]
-        item_name = item.split()[-1]
+        item_name = item.lstrip("│ └├─ ").split()[-1]
         item_path = os.path.join(folder_path, item_name)
         if is_dir:
             if item_path in open_folders:
                 open_folders.remove(item_path)
                 # Remove subfolder contents when closing
-                structure[:] = [(i, d) for i, d in structure if not i.startswith(f"    {item_name}/")]
+                structure[:] = [(i, d) for i, d in structure if not i.startswith(f"{'    ' * (item.count('│') + 1)}{item_name}/")]
             else:
                 open_folders.add(item_path)
-                # Add subfolder contents
-                sub_structure = get_structure(item_path)
-                structure[current_index[0]+1:current_index[0]+1] = [(f"    {sub_item}", sub_is_dir) for sub_item, sub_is_dir in sub_structure]
+                # Add subfolder contents with proper indentation
+                indent_level = item.count("│") + 1
+                sub_structure = get_structure(item_path, indent=indent_level)
+                structure[current_index[0]+1:current_index[0]+1] = sub_structure
         else:
             if item_path in selected_files:
                 selected_files.remove(item_path)
@@ -173,7 +166,7 @@ def semi_interactive_mode(folder_path):
         print("\033[H\033[J", end="")  # Clear screen
         print(_( "Select files/folders (use arrow keys, Enter to toggle, 'q' to finish):"))
         for i, (item, is_dir) in enumerate(structure):
-            item_name = item.split()[-1]
+            item_name = item.lstrip("│ └├─ ").split()[-1]
             item_path = os.path.join(folder_path, item_name)
             prefix = '→' if i == current_index[0] else ' '
             status = '[SELECTED]' if item_path in selected_files else '[OPEN]' if item_path in open_folders and is_dir else ''

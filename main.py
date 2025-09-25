@@ -4,20 +4,12 @@ import logging
 import datetime
 from colorama import init, Fore, Style
 import shutil
-from utils.file_utils import get_structure, get_file_contents, validate_path
+from utils.file_utils import get_structure, get_file_contents
+from utils.common_utils import validate_path
 from utils.config_utils import load_config, save_profile, detect_project_type, PROJECT_DEFAULTS, PROJECT_COLORS
 from utils.prompt_utils import save_prompt, PROMPT_TEMPLATES
 from utils.ui_utils import interactive_mode, gui_mode, semi_interactive_mode, format_output, save_and_open, clone_remote_repo, select_prompt
-import gettext
-
-# Initialize i18n
-lang = os.getenv("LANG", "en")
-if lang == "fa":
-    translation = gettext.translation("messages", localedir="locale", languages=["fa"])
-    translation.install()
-    _ = translation.gettext
-else:
-    _ = lambda x: x
+from utils.i18n_utils import _
 
 def setup_logging(log_file):
     """Setup logging configuration."""
@@ -66,7 +58,7 @@ def main():
         "-P", "--project-type",
         choices=list(PROJECT_DEFAULTS.keys()),
         default=None,
-        help=_(f"Project type: {', '.join(PROJECT_DEFAULTS.keys())}\nExample: --project-type laravel\nIf not provided, auto-detected based on folder contents.")
+        help=_(f"Project type: {', '.join(PROJECT_DEFAULTS.keys())}\nExample: --project-type nodejs\nIf not provided, auto-detected based on folder contents.")
     )
     parser.add_argument(
         "--remote",
