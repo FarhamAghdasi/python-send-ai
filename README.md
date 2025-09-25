@@ -9,7 +9,7 @@ This tool generates a folder structure and file contents for a given directory o
 - Interactive CLI mode, semi-interactive CLI mode (with arrow key selection), or GUI with default settings from `config.json`.
 - Multilingual support (English, Persian) with `--lang`.
 - Colored console output, progress feedback, and logging to file.
-- Project type support for Python, Node.js, Java, Go, and generic projects.
+- Project type support for Python, Node.js, Java, Go, Laravel, Next.js, React.js, and generic projects.
 - Remote repository support via GitHub URLs with `--remote`.
 - Copy output to clipboard with `--copy`.
 - Threaded file processing for performance.
@@ -73,14 +73,19 @@ python main.py --semi
 Navigate with arrow keys, press Enter to toggle selection, and 'q' to finish.
 
 ### CLI Mode
-Example for a Node.js project:
+Example for a Laravel project:
 ```bash
-python main.py -P nodejs -C "/path/to/project" ".git" ".svg,.log" -F src -K import -R "^import\s+" --format html --min-size 1000 --modified-after 2023-01-01
+python main.py -P laravel -C "/path/to/laravel-project" ".git,vendor" ".env,.blade.php" -F app -K route --format md
 ```
 
-Example for a GitHub repository:
+Example for a Next.js project:
 ```bash
-python main.py --remote https://github.com/user/repo --format html --copy
+python main.py -P nextjs --remote https://github.com/user/nextjs-repo --format html --copy
+```
+
+Example for a React.js project:
+```bash
+python main.py -P reactjs -C "/path/to/react-app" ".git,node_modules" ".d.ts" -F src -K component --min-size 500
 ```
 
 ### GUI Mode
@@ -94,10 +99,30 @@ Edit `config.json` to customize settings for different project types:
 ```json
 {
   "projects": {
-    "python": {
-      "exclude_folders": [".git", ".venv", "__pycache__"],
-      "exclude_extensions": [".svg", ".pyc", ".jpg", ".png", ".bin"],
-      "filter_folder": null,
+    "laravel": {
+      "exclude_folders": [".git", "vendor", "node_modules", "storage", "bootstrap/cache"],
+      "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin", ".env", ".blade.php"],
+      "filter_folder": "app",
+      "keyword": null,
+      "regex": null,
+      "output_format": "txt",
+      "min_size": 0,
+      "modified_after": null
+    },
+    "nextjs": {
+      "exclude_folders": [".git", ".next", "node_modules", "out"],
+      "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin"],
+      "filter_folder": "app",
+      "keyword": null,
+      "regex": null,
+      "output_format": "txt",
+      "min_size": 0,
+      "modified_after": null
+    },
+    "reactjs": {
+      "exclude_folders": [".git", "node_modules", "build", "dist"],
+      "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin", ".d.ts"],
+      "filter_folder": "src",
       "keyword": null,
       "regex": null,
       "output_format": "txt",
@@ -112,7 +137,7 @@ Edit `config.json` to customize settings for different project types:
 Save settings as a profile after processing:
 ```bash
 Would you like to save these settings as a profile? (y/n): y
-Enter profile name: my_profile
+Enter profile name: my_laravel_profile
 ```
 Profiles are saved in `profiles.json`.
 
@@ -131,16 +156,17 @@ Prompts are saved in the `prompts` folder as text files.
 ## Sample Output (HTML)
 ```html
 <h1>Project Structure</h1>
-<pre><code>├── [DIR] src
-│   ├── [FILE] index.js
-│   └── [FILE] utils.js
+<pre><code>├── [DIR] app
+│   ├── [FILE] Http/Controllers
+│   └── [FILE] Models
 </code></pre>
 <h1>File Contents</h1>
 <pre><code>----------------------------------------
-File: /path/to/project/src/index.js
+File: /path/to/laravel/app/Models/User.php
 ----------------------------------------
-import express from 'express';
-...
+<?php
+namespace App\Models;
+// ...
 </code></pre>
 ```
 

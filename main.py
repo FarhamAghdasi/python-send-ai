@@ -66,7 +66,7 @@ def main():
         "-P", "--project-type",
         choices=list(PROJECT_DEFAULTS.keys()),
         default=None,
-        help=_(f"Project type: {', '.join(PROJECT_DEFAULTS.keys())}\nExample: --project-type nodejs\nIf not provided, auto-detected based on folder contents.")
+        help=_(f"Project type: {', '.join(PROJECT_DEFAULTS.keys())}\nExample: --project-type laravel\nIf not provided, auto-detected based on folder contents.")
     )
     parser.add_argument(
         "--remote",

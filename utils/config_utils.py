@@ -55,6 +55,36 @@ PROJECT_DEFAULTS = {
         "min_size": 0,
         "modified_after": None
     },
+    "laravel": {
+        "exclude_folders": [".git", "vendor", "node_modules", "storage", "bootstrap/cache"],
+        "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin", ".env", ".blade.php"],
+        "filter_folder": "app",
+        "keyword": None,
+        "regex": None,
+        "output_format": "txt",
+        "min_size": 0,
+        "modified_after": None
+    },
+    "nextjs": {
+        "exclude_folders": [".git", ".next", "node_modules", "out"],
+        "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin"],
+        "filter_folder": "app",
+        "keyword": None,
+        "regex": None,
+        "output_format": "txt",
+        "min_size": 0,
+        "modified_after": None
+    },
+    "reactjs": {
+        "exclude_folders": [".git", "node_modules", "build", "dist"],
+        "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin", ".d.ts"],
+        "filter_folder": "src",
+        "keyword": None,
+        "regex": None,
+        "output_format": "txt",
+        "min_size": 0,
+        "modified_after": None
+    },
     "generic": {
         "exclude_folders": [".git"],
         "exclude_extensions": [".svg", ".jpg", ".png", ".bin"],
@@ -72,6 +102,9 @@ PROJECT_COLORS = {
     "nodejs": Fore.YELLOW,
     "java": Fore.GREEN,
     "go": Fore.BLUE,
+    "laravel": Fore.RED,
+    "nextjs": Fore.CYAN,
+    "reactjs": Fore.WHITE,
     "generic": Fore.CYAN
 }
 
@@ -80,6 +113,21 @@ def detect_project_type(folder_path):
     try:
         folder_path = validate_path(folder_path)
         items = os.listdir(folder_path)
+        # Laravel detection
+        if "composer.json" in items or "artisan" in items:
+            return "laravel"
+        # Next.js detection
+        if "next.config.js" in items or "next.config.mjs" in items or ("app" in items and "package.json" in items):
+            return "nextjs"
+        # React.js detection (basic React app)
+        if "package.json" in items:
+            with open(os.path.join(folder_path, "package.json"), "r") as f:
+                pkg = json.load(f)
+                dependencies = pkg.get("dependencies", {}) or {}
+                dev_dependencies = pkg.get("dev_dependencies", {}) or {}
+                if "react" in dependencies or "react" in dev_dependencies:
+                    return "reactjs"
+        # Existing detections
         if any(f in items for f in ["package.json", "npm-shrinkwrap.json"]):
             return "nodejs"
         if any(f in items for f in ["pyproject.toml", "requirements.txt", "setup.py"]):

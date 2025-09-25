@@ -197,3 +197,6 @@ msgstr "پرامپت‌های موجود:"
 
 msgid "Starting interactive mode"
 msgstr "شروع حالت تعاملی"
+
+msgid "Available project types: python, nodejs, java, go, laravel, nextjs, reactjs, generic"
+msgstr "انواع پروژه‌های موجود: پایتون، نودجی‌اس، جاوا، گو، لاراول، نکست‌جی‌اس، ری‌اکت‌جی‌اس، ژنریک"
