@@ -1,9 +1,8 @@
-pyperclip
-colorama
-tqdm
-markdown2
-pytest
-pytest-cov
-chardet
-gitpython
-prompt_toolkit
+colorama==0.4.6
+tqdm==4.66.1
+markdown2==2.4.10
+pyperclip==1.8.2
+GitPython==3.1.40
+chardet==5.2.0
+pytest==7.4.3
+pytest-cov==4.1.0

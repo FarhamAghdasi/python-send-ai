@@ -1,8 +1,8 @@
 {
   "projects": {
     "python": {
-      "exclude_folders": [".git", ".venv", "__pycache__"],
-      "exclude_extensions": [".svg", ".pyc", ".jpg", ".png", ".bin"],
+      "exclude_folders": [".git", ".venv", "__pycache__", "venv", "env", ".pytest_cache", ".mypy_cache", "dist", "build", "*.egg-info"],
+      "exclude_extensions": [".svg", ".pyc", ".jpg", ".png", ".bin", ".pyo", ".pyd", ".so", ".dll"],
       "filter_folder": null,
       "keyword": null,
       "regex": null,
@@ -11,8 +11,8 @@
       "modified_after": null
     },
     "nodejs": {
-      "exclude_folders": [".git", "node_modules", "dist", "build"],
-      "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin"],
+      "exclude_folders": [".git", "node_modules", "dist", "build", ".next", "coverage", ".nuxt"],
+      "exclude_extensions": [".svg", ".log", ".jpg", ".png", ".bin", ".map", ".lock"],
       "filter_folder": "src",
       "keyword": null,
       "regex": null,
@@ -21,8 +21,8 @@
       "modified_after": null
     },
     "java": {
-      "exclude_folders": [".git", "target", ".idea"],
-      "exclude_extensions": [".svg", ".class", ".jpg", ".png", ".bin"],
+      "exclude_folders": [".git", "target", ".idea", "build", "out", ".gradle"],
+      "exclude_extensions": [".svg", ".class", ".jpg", ".png", ".bin", ".jar", ".war"],
       "filter_folder": "src",
       "keyword": null,
       "regex": null,
@@ -31,7 +31,27 @@
       "modified_after": null
     },
     "go": {
-      "exclude_folders": [".git", "vendor"],
+      "exclude_folders": [".git", "vendor", "bin"],
+      "exclude_extensions": [".svg", ".jpg", ".png", ".bin"],
+      "filter_folder": null,
+      "keyword": null,
+      "regex": null,
+      "output_format": "txt",
+      "min_size": 0,
+      "modified_after": null
+    },
+    "csharp": {
+      "exclude_folders": [".git", "bin", "obj", "packages", ".vs"],
+      "exclude_extensions": [".svg", ".dll", ".exe", ".pdb", ".jpg", ".png"],
+      "filter_folder": null,
+      "keyword": null,
+      "regex": null,
+      "output_format": "txt",
+      "min_size": 0,
+      "modified_after": null
+    },
+    "php": {
+      "exclude_folders": [".git", "vendor", "cache", "storage"],
       "exclude_extensions": [".svg", ".jpg", ".png", ".bin"],
       "filter_folder": null,
       "keyword": null,
