@@ -534,18 +534,19 @@ def format_output(structure, contents, output_format="txt", prompt_template=None
 def save_and_open(output, folder_path, output_format="txt", split_if_large=True, copy_to_clipboard=False):
     """Save output to file and optionally open it."""
     try:
-        output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
+        # تغییر مسیر ذخیره‌سازی به پوشه output در مسیر جاری
+        output_dir = "output"
         os.makedirs(output_dir, exist_ok=True)
-
+        
         extension = {"txt": "txt", "json": "json", "md": "md", "html": "html"}[output_format]
         max_size = 12000
-
+        
         if copy_to_clipboard:
             pyperclip.copy(output)
             logging.info(_("Output copied to clipboard"))
-
+            
         if split_if_large and len(output) > max_size:
-            print(f"{Fore.YELLOW}⚠ {_('Output exceeds {max_size:,} characters.').format(max_size=max_size)}{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}⚠️ {_('Output exceeds {max_size:,} characters.').format(max_size=max_size)}{Style.RESET_ALL}")
             user_choice = input(f"{_('Split into multiple files? (y/n):')} ").strip().lower()
             if user_choice == "y":
                 parts = [output[i:i+max_size] for i in range(0, len(output), max_size)]
@@ -558,12 +559,13 @@ def save_and_open(output, folder_path, output_format="txt", split_if_large=True,
                     saved_paths.append(filepath)
                 logging.info(_(f"Output saved in {len(saved_paths)} files"))
                 return saved_paths
-
+                
         filename = f"project_structure_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.{extension}"
         filepath = os.path.join(output_dir, filename)
+        
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(output)
-
+            
         try:
             if platform.system() == 'Windows':
                 os.startfile(filepath)
@@ -573,12 +575,13 @@ def save_and_open(output, folder_path, output_format="txt", split_if_large=True,
                 os.system(f'xdg-open "{filepath}"')
         except Exception as e:
             logging.warning(_(f"Could not open file {filepath}: {e}"))
-
+            
         return filepath
+        
     except Exception as e:
         logging.error(_(f"Error saving output: {e}"))
         raise ValueError(_(f"Error saving output: {e}"))
-
+    
 def load_config(project_type="generic"):
     """Load configuration from config.json."""
     config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
